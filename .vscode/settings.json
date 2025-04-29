@@ -1,0 +1,9 @@
+{
+    "fortran.fortls.directories": [
+        "./**"
+    ],
+
+    "fortran.linter.includePaths": [
+    "./**"
+  ],
+}
