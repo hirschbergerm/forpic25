@@ -4,6 +4,7 @@ program ForPIC25
     use constants 
     use species_class
     use world_class
+    use potential_solver_class
 
     ! Implicit none declaration
     implicit none
@@ -17,8 +18,9 @@ program ForPIC25
     integer :: i, j, k 
 
 
-    type(world) :: simulation_domain
+    type(World) :: simulation_domain
     type(species) :: electrons, protons 
+    type(Field) :: ef
 
     !-------------------------------------------------------------------------------------------------
     

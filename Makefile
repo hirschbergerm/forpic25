@@ -28,12 +28,13 @@ $(PROG): $(OBJS)
 $(OBJS): %.o: %.f90
 		gfortran -c -o $@ $< -J src\mods
 
-# Dependencies
+# Specify dependencies for each source file
 src\main.o: src\constants.o \
 			src\physical_classes\species.o \
 			src\physical_classes\particle.o
 src\physical_classes\species.o: src\physical_classes\particle.o 
-src\world.o: src\field_classes\electric_field.o
+src\world.o: src\constants.o \
+			 src\field_classes\electric_field.o
 
 clean:
 	$(RM) $(filter %.o, $(OBJS)) $(filter %.exe, $(PROG)) $(wildcard *.mod)

@@ -1,9 +1,8 @@
 module particle_class
 
     implicit none
-    private 
 
-    type, public :: particle
+    type, public :: Particle
 
     contains 
 
