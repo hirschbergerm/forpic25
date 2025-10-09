@@ -1,12 +1,7 @@
 program ForPIC25
 
-    ! Use statements
-    use constants 
-    use species_class
-    use world_class
-    use potential_solver_class
-
-    ! Implicit none declaration
+    use constants
+    use world_mod
     implicit none
 
     ! Variable declarations
@@ -15,18 +10,14 @@ program ForPIC25
     integer :: sim_iterations
     integer, parameter :: n_nodes = 21
 
-    integer :: i, j, k 
-
-
-    type(World) :: simulation_domain
-    type(species) :: electrons, protons 
-    type(Field) :: ef
+    type(World) :: sim_domain
 
     !-------------------------------------------------------------------------------------------------
+    ! Construct world
+    call sim_domain%allocate(21, 21, 21)
+
     
-    simulation_domain%init(21, 21, 21)
-    simulation_domain%setExtents(-0.1, -0.1)
-    
+
     ! Load species 
     
 
