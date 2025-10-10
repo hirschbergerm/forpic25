@@ -3,7 +3,7 @@ module world_mod
     !! NOTE: Only implements a Cartesian mesh for now
     use constants
     use field_mod
-    use electrc_field_mod
+    use electric_field_mod
 
     implicit none
 
