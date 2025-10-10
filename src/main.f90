@@ -1,7 +1,6 @@
 program ForPIC25
 
     use constants
-    use potential_field_mod
     use world_mod
     implicit none
 
@@ -12,7 +11,6 @@ program ForPIC25
     integer, parameter :: n_nodes = 21
 
     type(World) :: sim_domain
-    class(PotentialField) :: phi
 
     !-------------------------------------------------------------------------------------------------
     ! Construct world
