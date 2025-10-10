@@ -6,7 +6,7 @@ module potential_solver_class
 
     type, public :: PotentialSolver
         
-        type(World), protected :: world
+        type(World) :: world
 
     contains 
         procedure, public :: solve

@@ -15,9 +15,7 @@ program ForPIC25
     !-------------------------------------------------------------------------------------------------
     ! Construct world
     call sim_domain%allocate(21, 21, 21)
-
     
-
     ! Load species 
     
 
