@@ -6,15 +6,8 @@ LD := $(FC)
 RM := del
 
 # List all source files
-SRCS := src\main.f90 \
-		src\constants.f90 \
-		src\physical_classes\species.f90 \
-		src\physical_classes\particle.f90
-
-OBJS := src\main.o \
-		src\constants.o \
-		src\physical_classes\species.o \
-		src\physical_classes\particle.o
+SRS = $(wildcard src/*.f90)
+OBJS = $(patsubst src/%.f90, build/%.o, $(SOURCES))
 
 .PHONY: all clean
 all: $(PROG)
@@ -26,15 +19,17 @@ $(PROG): $(OBJS)
 		gfortran -o $@ $^ -fopenmp
 
 $(OBJS): %.o: %.f90
-		gfortran -c -o $@ $< -J src\mods
+		gfortran -c -o $@ $< 
 
 # Specify dependencies for each source file
-src\main.o: src\constants.o \
-			src\physical_classes\species.o \
-			src\physical_classes\particle.o
-src\physical_classes\species.o: src\physical_classes\particle.o 
-src\world.o: src\constants.o \
-			 src\field_classes\electric_field.o
+src/main.o: src/constants.o \
+			src/physical_classes/species.o \
+			src/physical_classes/particle.o
+
+src/physical_classes/species.o: src/physical_classes/particle.o 
+
+src/world.o: src/constants.o \
+			 src/field_classes/electric_field.o
 
 clean:
 	$(RM) $(filter %.o, $(OBJS)) $(filter %.exe, $(PROG)) $(wildcard *.mod)
