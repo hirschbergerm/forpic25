@@ -21,6 +21,7 @@ module world_mod
         class(Field), allocatable, private :: phi
         class(Field), allocatable, private :: rho !! 
         class(ElectricField), allocatable, private :: ef !! 
+        
 
     contains 
 
@@ -35,6 +36,10 @@ contains
     subroutine alloc_world(this, ni, nj, nk) 
         class(World), intent(inout) :: this
         integer, intent(in) :: ni, nj, nk
+
+        !! Allocate the charge density and potential fields
+        call this%phi%allocate(ni, nj, nk)
+        call this%rho%allocate(ni, nj, nk)
 
         !! Allocate memory for the electric field data
         call this%ef%allocate(ni, nj, nk)
