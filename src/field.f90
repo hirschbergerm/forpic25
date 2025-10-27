@@ -12,8 +12,10 @@ module field_mod
     contains 
 
         !! We should only do pointers to other methods if the user can interact with that class
-        procedure :: allocate => alloc_field !! Constructor
-        procedure :: deallocate => dealloc_field !! Destructor
+        procedure, public :: allocate => alloc_field !! Constructor
+        procedure, public :: deallocate => dealloc_field !! Destructor
+
+        procedure, public :: getData
 
     end type Field
 
@@ -27,6 +29,15 @@ contains
         allocate(this%data(ni, nj, nk), source=0.0_dp)
 
     end subroutine alloc_field 
+
+    function getData(this, i, j, k) result(value)
+        class(Field), intent(in) :: this
+        integer, intent(in) :: i, j, k
+        real(dp) :: value
+
+        value = this%data(i, j, k)
+
+    end function getData
 
     subroutine dealloc_field(this)
         class(Field), intent(inout) :: this

@@ -11,21 +11,23 @@ module world_mod
 
         ! Mesh Data
         real, public :: mesh_origin(3) !! real(3) [x, y, z] components of mesh origin 
-        real, public :: num_nodes(3) !! real(3) [nx, ny, nz] Number of nodes along each axis
-        real, public :: ni, nj, nk 
+        integer, public :: num_nodes(3) !! real(3) [nx, ny, nz] Number of nodes along each axis
+        integer, public :: ni, nj, nk 
 
         real, private :: dh(3) !! real(3) [dx, dy, dz] cell spacing along each axis
         real, private :: max_bound(3) !! real(3) [xmax, ymax, zmax] maximum value along each axis
         real, private :: centroid(3)
 
-        class(Field), allocatable, private :: phi
-        class(Field), allocatable, private :: rho !! 
-        class(ElectricField), allocatable, private :: ef !! 
+        class(Field), allocatable, public :: phi
+        class(Field), allocatable, public :: rho !! 
+        class(ElectricField), allocatable, public :: ef !! 
         
 
     contains 
 
         procedure, public :: allocate => alloc_world
+
+        procedure, public :: getDh
     
     end type World 
 
@@ -45,5 +47,15 @@ contains
         call this%ef%allocate(ni, nj, nk)
 
     end subroutine alloc_world
+
+    function getDh(this) result(dh)
+        class(World), intent(inout) :: this
+        real :: dh(3)
+
+        dh = this%dh
+
+    end function getDh
+
+    
 
 end module world_mod
