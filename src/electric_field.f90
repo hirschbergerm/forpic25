@@ -1,18 +1,19 @@
-submodule (field_mod) electric_field_mod
+module electric_field_mod
 
+    use precision_mod, only : dp
     use constants
-    use field_mod
     implicit none
 
-    type, extends(Field3) :: ElectricField
+    type :: ElectricField
 
-        real(dp), allocatable, private :: Ex(:, :, :)
-        real(dp), allocatable, private :: Ey(:, :, :)
-        real(dp), allocatable, private :: Ez(:, :, :)
+        real(dp), allocatable, private :: Ex(:, :, :) !! real(ni x nj  nk) X-component of the electric field at (x, y, z)
+        real(dp), allocatable, private :: Ey(:, :, :) !! real(ni x nj  nk) Y-component of the electric field at (x, y, z)
+        real(dp), allocatable, private :: Ez(:, :, :) !! real(ni x nj  nk) Z-component of the electric field at (x, y, z)
 
     contains 
 
-        procedure:: allocate => alloc_electricfield
+        procedure :: allocate => alloc_electricfield
+        procedure :: deallocate => dealloc_electricfield
 
     end type ElectricField
     
@@ -22,15 +23,20 @@ contains
         class(ElectricField), intent(inout) :: this
         integer, intent(in) :: ni, nj, nk
 
-        !! Allocate the field arrays 
-        call this%alloc_field3(ni, nj, nk)
-
         !! Link electric field components
-        this%Ex = this%dataX
-        this%Ey = this%dataY
-        this%Ez = this%dataZ
+        allocate(this%Ex(ni, nj, nk), source = 0.0_dp)
+        allocate(this%Ey(ni, nj, nk), source = 0.0_dp)
+        allocate(this%Ez(ni, nj, nk), source = 0.0_dp)
 
     end subroutine alloc_electricfield
 
+    subroutine dealloc_electricfield(this)
+        class(ElectricField), intent(inout) :: this
 
-end submodule electric_field_mod
+        deallocate(this%Ex)
+        deallocate(this%Ey)
+        deallocate(this%Ez)
+
+    end subroutine dealloc_electricfield
+
+end module electric_field_mod
