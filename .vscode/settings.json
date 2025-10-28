@@ -2,13 +2,13 @@
     // Fortran language server settings
     "fortran.fortls.path": "utils/bin/fortls",
     "fortran.fortls.directories": [
-        "./**"
+        "./src/**"
     ],
 
     // Modern Fortran Linter settings
     "fortran.linter.compiler": "gfortran",
     "fortran.linter.extraArgs": ["-std=f2008"],
     "fortran.linter.includePaths": [
-        "./**"
+        "./src/**"
     ]
 }

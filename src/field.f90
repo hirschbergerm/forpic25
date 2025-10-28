@@ -15,7 +15,8 @@ module field_mod
         procedure, public :: allocate => alloc_field !! Constructor
         procedure, public :: deallocate => dealloc_field !! Destructor
 
-        procedure, public :: getData
+        procedure, public :: get
+        procedure, public :: set
 
     end type Field
 
@@ -30,14 +31,26 @@ contains
 
     end subroutine alloc_field 
 
-    function getData(this, i, j, k) result(value)
+    function get(this, i, j, k) result(value)
         class(Field), intent(in) :: this
         integer, intent(in) :: i, j, k
         real(dp) :: value
 
         value = this%data(i, j, k)
 
-    end function getData
+    end function get
+
+    subroutine set(this, i, j, k, value)
+        class(Field), intent(inout) :: this
+        integer, intent(in) :: i, j, k
+        real(dp), intent(in) :: value
+
+        ! Do some value checks here.
+        ! In the future this should probably be customizable to each class
+
+        this%data(i, j, k) = value
+
+    end subroutine set
 
     subroutine dealloc_field(this)
         class(Field), intent(inout) :: this
